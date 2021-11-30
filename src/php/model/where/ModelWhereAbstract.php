@@ -3,6 +3,8 @@
 namespace GoQueryEngine\Model\Where;
 
 use GoQueryEngine\Enum\EnumOutputField;
+use GoQueryEngine\Enum\EnumEmployeeRange;
+use GoQueryEngine\Enum\EnumMasterSector;
 use Exception;
 
 class ModelWhereAbstract
@@ -22,7 +24,15 @@ class ModelWhereAbstract
             case EnumOutputField::OUTPUT_REGISTERED_POSTCODE:
                 return new ModelWhereString($enumOutputField);
             case EnumOutputField::OUTPUT_EMPLOYEE_RANGE:
-                return new ModelWhereEmployeeRange($enumOutputField);
+                return new ModelWhereIn(
+                    $enumOutputField,
+                    EnumEmployeeRange::class
+                );
+            case EnumOutputField::OUTPUT_MASTER_SECTORS:
+                return new ModelWhereIn(
+                    $enumOutputField,
+                    EnumMasterSector::class
+                );
             case EnumOutputField::OUTPUT_LOCATION:
                 return new ModelWhereLocation($enumOutputField);
             default:
